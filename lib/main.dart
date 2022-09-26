@@ -1,8 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-import 'screens/auth/authenticate_screen.dart';
-import 'screens/home/home_screen.dart';
+import 'screens/wrapper.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,29 +30,10 @@ class _AppState extends State<App> {
         }
 
         if (snapshot.connectionState == ConnectionState.done) {
-          return MaterialApp(
-            initialRoute: '/',
-            routes: {
-              '/': (context) => AuthenticateScreen(),
-              '/home': (context) => HomeScreen(),
-            },
-            theme: ThemeData(
-                brightness: Brightness.dark,
-                scaffoldBackgroundColor: Colors.black,
-                appBarTheme: AppBarTheme(backgroundColor: Colors.black),
-                iconTheme: IconThemeData(color: Colors.white),
-                textButtonTheme: TextButtonThemeData(
-                  style: TextButton.styleFrom(
-                    foregroundColor: Colors.blueAccent, textStyle:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                  ),
-                ),
-                elevatedButtonTheme: ElevatedButtonThemeData(
-                  style: ElevatedButton.styleFrom(
-                    shape: StadiumBorder(),
-                  ),
-                ),
-                dividerColor: Colors.grey[600]),
+          return StreamProvider<User?>.value(
+            value: FirebaseAuth.instance.authStateChanges(),
+            initialData: FirebaseAuth.instance.currentUser,
+            child: Wrapper(),
           );
         }
 
