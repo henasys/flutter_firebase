@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../services/auth_service.dart';
-import '../home/home_screen.dart';
 
 class SignInScreen extends StatefulWidget {
   final VoidCallback toggleView;
@@ -84,12 +83,12 @@ class _SignInScreenState extends State<SignInScreen> {
                                       password: _passwordController.text);
                               if (user != null) {
                                 //navigate the user to the home screen
-                                Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => HomeScreen(),
-                                  ),
-                                );
+                                // Navigator.pushReplacement(
+                                //   context,
+                                //   MaterialPageRoute(
+                                //     builder: (context) => HomeScreen(),
+                                //   ),
+                                // );
                               }
                             }
                           },
