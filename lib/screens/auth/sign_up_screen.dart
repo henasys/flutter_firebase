@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
+import '../../common/utils.dart';
 import '../../services/auth_service.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -34,8 +35,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
               onPressed: () {
                 widget.toggleView();
               },
-              icon: Icon(Icons.person),
-              label: Text('Sign In'),
+              icon: const Icon(Icons.person),
+              label: const Text('Sign In'),
             )
           ],
         ),
@@ -48,31 +49,31 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 style: Theme.of(context).textTheme.headline6,
               ),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 50),
+                padding: const EdgeInsets.symmetric(horizontal: 50),
                 child: Form(
                   key: _formKey,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       TextFormField(
                           controller: _emailController,
-                          decoration: InputDecoration(hintText: 'Enter email'),
+                          decoration: const InputDecoration(hintText: 'Enter email'),
                           keyboardType: TextInputType.emailAddress,
                           validator: (val) => val == null || !val.contains('@')
                               ? 'Enter an email address'
                               : null),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       TextFormField(
                         controller: _passwordController,
-                        decoration: InputDecoration(hintText: 'Enter password'),
+                        decoration: const InputDecoration(hintText: 'Enter password'),
                         obscureText: true,
                         validator: (val) => val!.length < 6
                             ? 'Enter a password of '
                                 'at least 6 chars'
                             : null,
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       ElevatedButton(
                         onPressed: () async {
                           if (_formKey.currentState!.validate()) {
@@ -81,14 +82,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     email: _emailController.text,
                                     password: _passwordController.text);
                             if (user == null) {
-                              final message = 'The email address is already in use by another account.';
-                              final snackBar = SnackBar(content: Text(message));
-                              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                              const message = 'The email address is already in use by another account.';
+                              Utils.showSnackBar(message);
                               return;
                             }
+
                           }
                         },
-                        child: Text('Sign Up'),
+                        child: const Text('Sign Up'),
                       )
                     ],
                   ),

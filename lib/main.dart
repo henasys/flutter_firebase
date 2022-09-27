@@ -24,7 +24,7 @@ class _AppState extends State<App> {
       future: _initialization,
       builder: (context, snapshot) {
         if (snapshot.hasError) {
-          return Center(
+          return const Center(
             child: Text('There was an error'),
           );
         }
@@ -37,7 +37,7 @@ class _AppState extends State<App> {
           );
         }
 
-        return CircularProgressIndicator();
+        return const CircularProgressIndicator();
       },
     );
   }
