@@ -97,6 +97,8 @@ class _SignInScreenState extends State<SignInScreen> {
                       const SizedBox(height: 20),
                       SignInButton(
                         Buttons.Google,
+                        text: 'Sign in w/ Google',
+                        // padding: const EdgeInsets.all(20),
                         onPressed: () async {
                           final user = await AuthService().signInWithGoogle();
                           print('Google: $user');
