@@ -4,8 +4,10 @@ import 'sign_in_screen.dart';
 import 'sign_up_screen.dart';
 
 class AuthenticateScreen extends StatefulWidget {
+  const AuthenticateScreen({super.key});
+
   @override
-  _AuthenticateScreenState createState() => _AuthenticateScreenState();
+  State<AuthenticateScreen> createState() => _AuthenticateScreenState();
 }
 
 class _AuthenticateScreenState extends State<AuthenticateScreen> {

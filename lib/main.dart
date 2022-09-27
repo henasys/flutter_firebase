@@ -11,8 +11,10 @@ void main() {
 }
 
 class App extends StatefulWidget {
+  const App({super.key});
+
   @override
-  _AppState createState() => _AppState();
+  State<App> createState() => _AppState();
 }
 
 class _AppState extends State<App> {
