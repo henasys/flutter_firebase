@@ -16,7 +16,9 @@ class _HomeScreenState extends State<HomeScreen> {
     // print('user: $user');
     final email = user != null? user.email : '';
     return Scaffold(
-      appBar: AppBar(actions: [
+      appBar: AppBar(
+        title: const Text('Home'),
+          actions: [
         IconButton(
             icon: const Icon(Icons.logout),
             onPressed: () {
@@ -25,15 +27,15 @@ class _HomeScreenState extends State<HomeScreen> {
             }),
       ]),
       body: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.all(20),
           child: Column(
         // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+        crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          Text("Home", style: Theme.of(context).textTheme.headline5,),
           const SizedBox(height: 20,),
-          Text("$email is logged in", style: Theme.of(context).textTheme.headline6,),
-          Text("emailVerified: ${user?.emailVerified}"),
+          Text("$email", style: Theme.of(context).textTheme.headline5,),
+          const SizedBox(height: 20,),
+          Text("logged in", style: Theme.of(context).textTheme.headline6,),
         ],
       )),
     );

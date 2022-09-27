@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../common/utils.dart';
 import 'auth/authenticate_screen.dart';
-import 'home/home_screen.dart';
+import 'auth/verify_email_screen.dart';
 
 class Wrapper extends StatelessWidget {
   const Wrapper({super.key});
@@ -14,7 +14,7 @@ class Wrapper extends StatelessWidget {
     final user = Provider.of<User?>(context);
     return MaterialApp(
       scaffoldMessengerKey: Utils.messengerKey,
-      home: user != null ? const HomeScreen() : AuthenticateScreen(),
+      home: user != null ? const VerifyEmailScreen() : AuthenticateScreen(),
       theme: ThemeData(
           brightness: Brightness.dark,
           scaffoldBackgroundColor: Colors.black,

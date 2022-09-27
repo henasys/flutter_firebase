@@ -88,7 +88,7 @@ class _SignInScreenState extends State<SignInScreen> {
                               }
                             }
                           },
-                          child: Text('Sign In'))
+                          child: const Text('Sign In'))
                     ],
                   ),
                 ),
