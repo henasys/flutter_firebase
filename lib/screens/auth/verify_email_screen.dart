@@ -33,8 +33,8 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
 
   @override
   void dispose() {
-    _timer?.cancel();
     super.dispose();
+    _timer?.cancel();
   }
 
   @override
@@ -44,8 +44,8 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
     }
     return Scaffold(
       appBar: AppBar(title: const Text('Verify Email')),
-      body: Padding(
-        padding: const EdgeInsets.all(10),
+      body: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 50),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -59,7 +59,9 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
             const SizedBox(height: 40),
             ElevatedButton(
               onPressed: _canResendEmail ? _sendVerificationEmail : null,
-              child: const Text('Resent Email'),
+              child: _canResendEmail
+                  ? const Text('Resent Email')
+                  : const Text('Hold on...'),
             ),
             const SizedBox(height: 40),
             TextButton(
@@ -79,13 +81,17 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
     try {
       final user = FirebaseAuth.instance.currentUser!;
       await user.sendEmailVerification();
-
-      setState(() => _canResendEmail = false);
-      await Future.delayed(const Duration(seconds: 5));
-      setState(() => _canResendEmail = true);
     } catch (e) {
       Utils.showSnackBar(e.toString());
     }
+
+    setState(() {
+      _canResendEmail = false;
+    });
+    await Future.delayed(const Duration(seconds: 5));
+    setState(() {
+      _canResendEmail = true;
+    });
   }
 
   Future _checkEmailVerified() async {

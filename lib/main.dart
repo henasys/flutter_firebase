@@ -35,7 +35,7 @@ class _AppState extends State<App> {
           return StreamProvider<User?>.value(
             value: FirebaseAuth.instance.authStateChanges(),
             initialData: FirebaseAuth.instance.currentUser,
-            child: Wrapper(),
+            child: const Wrapper(),
           );
         }
 

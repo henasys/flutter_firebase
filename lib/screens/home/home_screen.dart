@@ -27,9 +27,8 @@ class _HomeScreenState extends State<HomeScreen> {
             }),
       ]),
       body: Container(
-        padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.symmetric(horizontal: 50),
           child: Column(
-        // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           const SizedBox(height: 20,),
