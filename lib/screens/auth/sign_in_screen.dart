@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_signin_button/button_list.dart';
+import 'package:flutter_signin_button/button_view.dart';
 import 'package:flutterfirebase/common/utils.dart';
 import 'package:lottie/lottie.dart';
 
@@ -58,7 +60,8 @@ class _SignInScreenState extends State<SignInScreen> {
                       const SizedBox(height: 20),
                       TextFormField(
                           controller: _emailController,
-                          decoration: const InputDecoration(hintText: 'Enter email'),
+                          decoration:
+                              const InputDecoration(hintText: 'Enter email'),
                           keyboardType: TextInputType.emailAddress,
                           validator: (val) => val == null || !val.contains('@')
                               ? 'Enter an email address'
@@ -82,12 +85,23 @@ class _SignInScreenState extends State<SignInScreen> {
                                       email: _emailController.text,
                                       password: _passwordController.text);
                               if (user == null) {
-                                const message = 'There is no user or wrong password';
+                                const message =
+                                    'There is no user or wrong password';
                                 Utils.showSnackBar(message);
                               }
                             }
                           },
-                          child: const Text('Sign In'))
+                          child: const Text('Sign In')),
+                      const SizedBox(height: 20),
+                      const Text('OR'),
+                      const SizedBox(height: 20),
+                      SignInButton(
+                        Buttons.Google,
+                        onPressed: () async {
+                          final user = await AuthService().signInWithGoogle();
+                          print('Google: $user');
+                        },
+                      ),
                     ],
                   ),
                 ),
