@@ -67,10 +67,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         controller: _passwordController,
                         decoration: InputDecoration(hintText: 'Enter password'),
                         obscureText: true,
-                        // validator: (val) => val!.length < 6
-                        //     ? 'Enter a password of '
-                        //         'at least 6 chars'
-                        //     : null),
+                        validator: (val) => val!.length < 6
+                            ? 'Enter a password of '
+                                'at least 6 chars'
+                            : null,
                       ),
                       SizedBox(height: 20),
                       ElevatedButton(
@@ -80,9 +80,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 .createUserWithEmailAndPassword(
                                     email: _emailController.text,
                                     password: _passwordController.text);
-                            if (user != null) {
-                              print(user);
-                              //take the user to the home screen
+                            if (user == null) {
+                              final message = 'The email address is already in use by another account.';
+                              final snackBar = SnackBar(content: Text(message));
+                              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                              return;
                             }
                           }
                         },

@@ -81,14 +81,10 @@ class _SignInScreenState extends State<SignInScreen> {
                                   .signInWithEmailAndPassword(
                                       email: _emailController.text,
                                       password: _passwordController.text);
-                              if (user != null) {
-                                //navigate the user to the home screen
-                                // Navigator.pushReplacement(
-                                //   context,
-                                //   MaterialPageRoute(
-                                //     builder: (context) => HomeScreen(),
-                                //   ),
-                                // );
+                              if (user == null) {
+                                final message = 'There is no user or wrong password';
+                                final snackBar = SnackBar(content: Text(message));
+                                ScaffoldMessenger.of(context).showSnackBar(snackBar);
                               }
                             }
                           },

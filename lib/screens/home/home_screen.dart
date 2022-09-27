@@ -13,7 +13,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User?>(context);
-    final name = user != null? user.email : '';
+    // print('user: $user');
+    final email = user != null? user.email : '';
     return Scaffold(
       appBar: AppBar(actions: [
         IconButton(
@@ -31,7 +32,8 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           Text("Home", style: Theme.of(context).textTheme.headline5,),
           const SizedBox(height: 20,),
-          Text("$name is logged in", style: Theme.of(context).textTheme.headline6,)
+          Text("$email is logged in", style: Theme.of(context).textTheme.headline6,),
+          Text("emailVerified: ${user?.emailVerified}"),
         ],
       )),
     );

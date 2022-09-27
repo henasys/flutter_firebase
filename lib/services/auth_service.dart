@@ -10,7 +10,7 @@ class AuthService {
           email: email, password: password);
       return userCredential.user;
     } on FirebaseAuthException catch (e) {
-      print(e.message);
+      print(e);
     }
   }
 
@@ -22,7 +22,7 @@ class AuthService {
 
       return userCredential.user;
     } on FirebaseAuthException catch (e) {
-      print(e.message);
+      print(e);
     }
   }
 }
