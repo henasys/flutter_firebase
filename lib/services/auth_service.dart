@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutterfirebase/services/firebase_auth_remote_data_source.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart' as kakao;
 
@@ -53,6 +54,13 @@ class AuthService {
     }
     final user = await kakao.UserApi.instance.me();
     print(user);
+    final token = await FirebaseAuthRemoteDataSource().createCustomToken({
+      'uid': user!.id.toString(),
+      'displayName': user!.kakaoAccount!.profile!.nickname,
+      'email': user!.kakaoAccount!.email!,
+      // 'photoURL': user!.kakaoAccount!.profile!.profileImageUrl!,
+    });
+    await FirebaseAuth.instance.signInWithCustomToken(token);
   }
 
   Future signOutWithKakao() async {
