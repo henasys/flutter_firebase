@@ -78,31 +78,21 @@ class _SignInScreenState extends State<SignInScreen> {
                               : null),
                       const SizedBox(height: 20),
                       ElevatedButton(
-                          onPressed: () async {
-                            if (_formKey.currentState!.validate()) {
-                              final user = await AuthService()
-                                  .signInWithEmailAndPassword(
-                                      email: _emailController.text,
-                                      password: _passwordController.text);
-                              if (user == null) {
-                                const message =
-                                    'There is no user or wrong password';
-                                Utils.showSnackBar(message);
-                              }
-                            }
-                          },
+                          onPressed: handleForSignIn,
                           child: const Text('Sign In')),
                       const SizedBox(height: 20),
-                      const Text('OR'),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          Text('OR'),
+                        ],
+                      ),
                       const SizedBox(height: 20),
                       SignInButton(
                         Buttons.Google,
                         text: 'Sign in w/ Google',
                         // padding: const EdgeInsets.all(20),
-                        onPressed: () async {
-                          final user = await AuthService().signInWithGoogle();
-                          print('Google: $user');
-                        },
+                        onPressed: handleForSignInWithGoogle,
                       ),
                     ],
                   ),
@@ -111,5 +101,28 @@ class _SignInScreenState extends State<SignInScreen> {
             ],
           ),
         ));
+  }
+
+  Future<void> handleForSignInWithGoogle() async {
+    try {
+      final user = await AuthService().signInWithGoogle();
+      print('Google: $user');
+    } catch (e) {
+      print(e);
+      Utils.showSnackBar(e.toString());
+    }
+  }
+
+  Future<void> handleForSignIn() async {
+    if (_formKey.currentState!.validate()) {
+      try {
+        final user = await AuthService().signInWithEmailAndPassword(
+            email: _emailController.text, password: _passwordController.text);
+      } on Exception catch (e) {
+        print(e);
+        const message = 'There is no user or wrong password';
+        Utils.showSnackBar(message);
+      }
+    }
   }
 }

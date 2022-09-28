@@ -14,11 +14,11 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final user = Provider.of<User?>(context);
     // print('user: $user');
-    final email = user != null? user.email : '';
+    // print('user: ${user?.providerData.length}');
+    // print('user: ${user?.providerData}');
+    final email = user != null ? user.email : '';
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Home'),
-          actions: [
+      appBar: AppBar(title: const Text('Home'), actions: [
         IconButton(
             icon: const Icon(Icons.logout),
             onPressed: () {
@@ -29,14 +29,42 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Container(
           padding: const EdgeInsets.symmetric(horizontal: 50),
           child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          const SizedBox(height: 20,),
-          Text("$email", style: Theme.of(context).textTheme.headline5,),
-          const SizedBox(height: 20,),
-          Text("logged in", style: Theme.of(context).textTheme.headline6,),
-        ],
-      )),
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const SizedBox(
+                height: 20,
+              ),
+              Text(
+                "$email",
+                style: Theme.of(context).textTheme.headline5,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Text(
+                "logged in",
+                style: Theme.of(context).textTheme.headline6,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Expanded(
+                child: ListView.builder(
+                    itemCount: user?.providerData.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      final providerId = user?.providerData[index].providerId;
+                      if (providerId != null) {
+                        return Text(
+                          'providerId $providerId',
+                          style: Theme.of(context).textTheme.headline6,
+                        );
+                      }
+                      return const Text('no providerId');
+                    }),
+              )
+            ],
+          )),
     );
   }
 }
