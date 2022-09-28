@@ -8,7 +8,7 @@ import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart' as kakao;
 import 'screens/wrapper.dart';
 
 void main() async {
-  await dotenv.load(fileName: ".env");
+  await dotenv.load(fileName: "assets/.env");
   final key = dotenv.env['KAKAO_NATIVE_APP_KEY'];
   kakao.KakaoSdk.init(nativeAppKey: key);
   WidgetsFlutterBinding.ensureInitialized();

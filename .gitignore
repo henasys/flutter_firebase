@@ -48,4 +48,4 @@ google-services.json
 GoogleService-Info.plist
 
 # dotenv
-.env
+assets/.env
