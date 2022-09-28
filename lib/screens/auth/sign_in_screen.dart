@@ -46,7 +46,7 @@ class _SignInScreenState extends State<SignInScreen> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              Lottie.asset('assets/images/calendar.json', width: 175),
+              // Lottie.asset('assets/images/calendar.json', width: 175),
               Text(
                 'Yet another Todo list',
                 style: Theme.of(context).textTheme.headline6,
