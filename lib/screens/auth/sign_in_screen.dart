@@ -20,6 +20,7 @@ class _SignInScreenState extends State<SignInScreen> {
   final TextEditingController _passwordController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
+  bool _isSigningIn = false;
 
   @override
   void dispose() {
@@ -78,8 +79,8 @@ class _SignInScreenState extends State<SignInScreen> {
                               : null),
                       const SizedBox(height: 20),
                       ElevatedButton(
-                          onPressed: handleForSignIn,
-                          child: const Text('Sign In')),
+                              onPressed: handleForSignIn,
+                              child: const Text('Sign In')),
                       const SizedBox(height: 20),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -88,12 +89,16 @@ class _SignInScreenState extends State<SignInScreen> {
                         ],
                       ),
                       const SizedBox(height: 20),
-                      SignInButton(
-                        Buttons.Google,
-                        text: 'Sign in w/ Google',
-                        // padding: const EdgeInsets.all(20),
-                        onPressed: handleForSignInWithGoogle,
-                      ),
+                      _isSigningIn
+                          ? Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [CircularProgressIndicator()])
+                          : SignInButton(
+                              Buttons.Google,
+                              text: 'Sign in w/ Google',
+                              // padding: const EdgeInsets.all(20),
+                              onPressed: handleForSignInWithGoogle,
+                            ),
                     ],
                   ),
                 ),
@@ -104,19 +109,27 @@ class _SignInScreenState extends State<SignInScreen> {
   }
 
   Future<void> handleForSignInWithGoogle() async {
+    setState(() {
+      _isSigningIn = true;
+    });
     try {
       final user = await AuthService().signInWithGoogle();
       print('Google: $user');
-    } catch (e) {
+    } on Exception catch (e) {
       print(e);
       Utils.showSnackBar(e.toString());
+    } catch (e) {
+      print(e);
     }
+    setState(() {
+      _isSigningIn = false;
+    });
   }
 
   Future<void> handleForSignIn() async {
     if (_formKey.currentState!.validate()) {
       try {
-        final user = await AuthService().signInWithEmailAndPassword(
+        await AuthService().signInWithEmailAndPassword(
             email: _emailController.text, password: _passwordController.text);
       } on Exception catch (e) {
         print(e);
