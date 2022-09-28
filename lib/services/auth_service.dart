@@ -53,13 +53,16 @@ class AuthService {
       await kakao.UserApi.instance.loginWithKakaoAccount();
     }
     final user = await kakao.UserApi.instance.me();
-    print(user);
+    print("user $user");
+    print("user.kakaoAccount ${user.kakaoAccount}");
     final token = await FirebaseAuthRemoteDataSource().createCustomToken({
       'uid': user!.id.toString(),
       'displayName': user!.kakaoAccount!.profile!.nickname,
       'email': user!.kakaoAccount!.email!,
+      'emailVerified': user!.kakaoAccount!.isEmailVerified.toString()
       // 'photoURL': user!.kakaoAccount!.profile!.profileImageUrl!,
     });
+    print("token $token");
     await FirebaseAuth.instance.signInWithCustomToken(token);
   }
 
