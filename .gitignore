@@ -43,10 +43,14 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
-# Firebase
+# Firebase for Flutter
 google-services.json
 GoogleService-Info.plist
+/ios/firebase_app_id_file.json
+/lib/firebase_options.dart
 
-# dotenv
+# flutter_config
 .env
 !.env.sample
+
+
