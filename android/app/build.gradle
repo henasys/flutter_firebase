@@ -25,6 +25,9 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
+apply from: project(':flutter_config').projectDir.getPath() + "/dotenv.gradle"
+
+def kakaoNativeAppKey = project.env.get("KAKAO_NATIVE_APP_KEY")
 
 android {
     compileSdkVersion flutter.compileSdkVersion
@@ -48,11 +51,12 @@ android {
         applicationId "com.henasys.app.flutterfirebase"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-build-configuration.
-        minSdkVersion 19 //flutter.minSdkVersion
+        minSdkVersion 21 //flutter.minSdkVersion
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled true
+        manifestPlaceholders += [KAKAO_NATIVE_APP_KEY:kakaoNativeAppKey]
     }
 
     buildTypes {

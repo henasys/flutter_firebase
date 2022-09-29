@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_signin_button/button_builder.dart';
 import 'package:flutter_signin_button/button_list.dart';
 import 'package:flutter_signin_button/button_view.dart';
 import 'package:flutterfirebase/common/utils.dart';
@@ -20,7 +21,6 @@ class _SignInScreenState extends State<SignInScreen> {
   final TextEditingController _passwordController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
-  bool _isSigningIn = false;
 
   @override
   void dispose() {
@@ -46,11 +46,11 @@ class _SignInScreenState extends State<SignInScreen> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              Lottie.asset('assets/images/calendar.json', width: 175),
-              Text(
-                'Yet another Todo list',
-                style: Theme.of(context).textTheme.headline6,
-              ),
+              // Lottie.asset('assets/images/calendar.json', width: 175),
+              // Text(
+              //   'Yet another Todo list',
+              //   style: Theme.of(context).textTheme.headline6,
+              // ),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 50),
                 child: Form(
@@ -79,8 +79,8 @@ class _SignInScreenState extends State<SignInScreen> {
                               : null),
                       const SizedBox(height: 20),
                       ElevatedButton(
-                              onPressed: handleForSignIn,
-                              child: const Text('Sign In')),
+                          onPressed: handleForSignIn,
+                          child: const Text('Sign In')),
                       const SizedBox(height: 20),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -89,16 +89,18 @@ class _SignInScreenState extends State<SignInScreen> {
                         ],
                       ),
                       const SizedBox(height: 20),
-                      _isSigningIn
-                          ? Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [CircularProgressIndicator()])
-                          : SignInButton(
-                              Buttons.Google,
-                              text: 'Sign in w/ Google',
-                              // padding: const EdgeInsets.all(20),
-                              onPressed: handleForSignInWithGoogle,
-                            ),
+                      SignInButton(
+                        Buttons.Google,
+                        text: 'Sign in w/ Google',
+                        // padding: const EdgeInsets.all(20),
+                        onPressed: handleForSignInWithGoogle,
+                      ),
+                      SignInButtonBuilder(
+                        text: 'Sign in with Kakao',
+                        icon: Icons.kayaking,
+                        onPressed: handleForSignInWithKakao,
+                        backgroundColor: Colors.blueGrey[700]!,
+                      )
                     ],
                   ),
                 ),
@@ -108,10 +110,7 @@ class _SignInScreenState extends State<SignInScreen> {
         ));
   }
 
-  Future<void> handleForSignInWithGoogle() async {
-    setState(() {
-      _isSigningIn = true;
-    });
+  Future handleForSignInWithGoogle() async {
     try {
       final user = await AuthService().signInWithGoogle();
       print('Google: $user');
@@ -121,12 +120,9 @@ class _SignInScreenState extends State<SignInScreen> {
     } catch (e) {
       print(e);
     }
-    setState(() {
-      _isSigningIn = false;
-    });
   }
 
-  Future<void> handleForSignIn() async {
+  Future handleForSignIn() async {
     if (_formKey.currentState!.validate()) {
       try {
         await AuthService().signInWithEmailAndPassword(
@@ -136,6 +132,14 @@ class _SignInScreenState extends State<SignInScreen> {
         const message = 'There is no user or wrong password';
         Utils.showSnackBar(message);
       }
+    }
+  }
+
+  Future handleForSignInWithKakao() async {
+    try {
+      await AuthService().signInWithKakao();
+    } catch (e) {
+      print(e);
     }
   }
 }
