@@ -4,9 +4,8 @@
 
 Flutter에서 Firebase 연동해보는 실험 프로젝트입니다.
 
-2022년 9월29일 현재까지는 아래와 같은 항목을 구현했습니다.
+2022년 9월29일 현재까지는 아래와 같은 항목을 구현했습니다. (브랜치별 기능 분리)
 
-브랜치별로 기능을 따로 구현했습니다.
 * firebase-simeple-signin-signup
   - 이메일과 패스워드로 간단한 로그인/회원가입 화면
 * firebase-verify-email
@@ -24,7 +23,6 @@ PacktPublishing  비디오 강의 내용입니다.
 
  * [비디오 링크, Flutter Foundation with Firebase and Provider [Video]
 By Varun Nath](https://www.packtpub.com/product/flutter-foundation-with-firebase-and-provider/9781804611449?_ga=2.76004373.127952286.1664420772-197058785.1664174451)
-
  * [소스 코드 링크, Flutter-Foundation-with-Firebase-and-Provider](https://github.com/PacktPublishing/Flutter-Foundation-with-Firebase-and-Provider)
 
 카카오 계정 연동 방법은 오준석님의 비디오 강의를 보며 배웠습니다. 
@@ -50,7 +48,7 @@ dart pub global activate flutterfire_cli
 flutterfire configure --project=your-project-id-in-firebase
 ```
 
-위 명령으로 실행하면 아래 파일이 생성됩니다..
+위 명령을 실행하면 아래 파일이 생성됩니다..
 
 ```
 /ios/firebase_app_id_file.json
