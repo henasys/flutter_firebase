@@ -6,7 +6,7 @@ Flutter에서 Firebase 연동해보는 실험 프로젝트입니다.
 
 2022년 9월29일 현재까지는 아래와 같은 항목을 구현했습니다. (브랜치별 기능 분리)
 
-* firebase-simeple-signin-signup
+* firebase-simple-signin-signup
   - 이메일과 패스워드로 간단한 로그인/회원가입 화면
 * firebase-verify-email
   - 최초 로그인할 때에 인증 메일을 보내고, 메일 링크 눌러서 인증해야만 넘어갈 수 있도록 구현
