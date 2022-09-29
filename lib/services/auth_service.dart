@@ -21,6 +21,21 @@ class AuthService {
   }
 
   signOut(User? user) async {
+    if (user != null) {
+      if (user.uid.contains("kakao:")) {
+        print("signOutWithKakao");
+        await signOutWithKakao();
+      }
+      if (user.providerData.isNotEmpty) {
+        for (var e in user.providerData) {
+          if (e.providerId == 'google.com') {
+            print("signOutWithGoogle");
+            await signOutWithGoogle();
+          }
+        }
+      }
+    }
+    print("signOut Firebase");
     await _auth.signOut();
   }
 

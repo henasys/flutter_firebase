@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterfirebase/services/auth_service.dart';
 
 import '../../common/utils.dart';
 import '../home/home_screen.dart';
@@ -69,7 +70,11 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                 'Cancel',
                 style: TextStyle(fontSize: 24),
               ),
-              onPressed: () => FirebaseAuth.instance.signOut(),
+              onPressed: () async {
+                _timer?.cancel();
+                final user = FirebaseAuth.instance.currentUser!;
+                await AuthService().signOut(user);
+              },
             ),
           ],
         ),
